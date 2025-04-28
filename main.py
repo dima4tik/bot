@@ -46,7 +46,7 @@ bot = telebot.TeleBot('7531422376:AAHUzj74xeDJNbcQ2ysmvJAY7HUto70LhQ8')
 def echo_all(message):
     # Проверяем, что сообщение из группы (чтобы не отвечать в личку)
     if message.chat.type in ['group', 'supergroup']:
-        if message.text.lower() == 'юра':
+        if 'юра' in message.text.lower():
             bot.reply_to(message, "lox")
 
 bot.polling(non_stop=True)
