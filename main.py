@@ -42,11 +42,22 @@ bot = telebot.TeleBot('7531422376:AAHUzj74xeDJNbcQ2ysmvJAY7HUto70LhQ8')
 
 
 # Обработчик всех текстовых сообщений
+KEYWORD = 'юра'
+
+# Функция для проверки сообщения
+def check_keyword_in_message(message, keyword):
+    return keyword.lower() in message.text.lower()
+
+# Обработчик всех текстовых сообщений
 @bot.message_handler(content_types=['text'])
 def echo_all(message):
-    # Проверяем, что сообщение из группы (чтобы не отвечать в личку)
-    if message.chat.type in ['group', 'supergroup']:
-        if 'юра' in message.text.lower():
-            bot.reply_to(message, "lox")
+    try:
+        # Проверяем, что сообщение из группы (чтобы не отвечать в личку)
+        if message.chat.type in ['group', 'supergroup']:
+            # Проверяем, содержит ли сообщение нужное слово
+            if check_keyword_in_message(message, KEYWORD):
+                bot.reply_to(message, "lox")
+    except Exception as e:
+        print(f"Error occurred: {e}")
 
 bot.polling(non_stop=True)
